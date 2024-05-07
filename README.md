@@ -43,3 +43,40 @@ once the response is ready, it sends the complete event and the response to any 
 1. in traditional rest api when we make a db call to the database .. if the returned data is huge which our application is unable to handle due to out of memory ..application down time is more
 
   in reactive programming there is a concept of backpressure where we inform the database how much data we need to process at a time(in the database driver) so that application downtime will not be there and concurrent.
+**
+
+ ** Reactive Programming work flow **
+
+
+it contains
+1. publisher
+2. subscriber
+3. processor
+4. subscription
+
+Publisher : which is responsible for publishing events
+![image](https://github.com/saisrinivas12/notes/assets/59176223/0d34ab16-8d5f-455f-a0f9-afc187406988)
+
+Subscriber: which is responsible for subscribing to events 
+![image](https://github.com/saisrinivas12/notes/assets/59176223/ecf95c3b-8abf-44b2-b1ce-9db12408fb61)
+
+Processor : which is a combination of both publisher and subscriber
+![image](https://github.com/saisrinivas12/notes/assets/59176223/da47e082-6144-434f-9072-c408dc8489af)
+
+Subscription : which is a unique interface between publisher and subscriber 
+![image](https://github.com/saisrinivas12/notes/assets/59176223/12120bbb-79b0-4c39-bb1d-6e7eda0087bf)
+
+
+**Workflow:**
+
+![image](https://github.com/saisrinivas12/notes/assets/59176223/5cbb8d78-4cb4-4ac6-9526-caf16e34f53e)
+
+
+1. at first subscriber invokes subscribe() method of publisher and then publisher sends an subscription event saying that subscription is successful.
+
+2. then subscriber calls request(n) from subscription interface (n is no of requests )  then publisher calls onNext() method of the subscriber for processing the data. if n is 10 there is a total of n onNext() calls . if the event streaming is complete then publisher will invoke onComplete() method of subscriber or onError() if there is any exception.
+
+
+
+
+
