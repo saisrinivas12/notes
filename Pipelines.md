@@ -95,7 +95,99 @@ pipeline {
         }
     }
 }
-   
 
+
+   Pipeline Syntax and stages of execution :
+
+**   agent can be defined both in global context or in the stages 
+**   pipeline{
+   agent any;
+   options{
+   timeout(1,'SECONDS')//executes the options after agent is allocated 
+   }
+   }
+
+agent in stage level:
+
+pipeline{
+stages{
+stage("build"){
+agent any 
+options{
+timeout(1,'SECONDS')//executes the options before agent is allocated 
+}
+}
+
+
+Parameters :
+
+1. any : execute the pipeline on any available agent.(agent any)
+2. none : when the none is there at the global level, no agent will be allocated to run the pipeline so you need to define own agents inside each stage.
+3. label :run any pipeline with the provided label.: agent{ label 'my-label'}
+4. node : same like label but it creates custom workspace  agent{ node { label 'my-label'}}
+5. //docker and kubernetes we will see later
+
+
+ common parameters :
+ 1. customWorkspace : run the pipeline or individual for which customworkspace points to . it can be relative or absolute path.
+    pipeline{
+    agent {
+       node{
+         label 'my-label'
+          customWorkspace /tmp/var/workspace
+    }
+    }
+    }
+2.reuseNode : by default it is set to false. if true we will run the container on the same node instead of a new node completely
+
+
+post :
+it defines what to do after pipeline has been completed it has various options :
+always
+Run the steps in the post section regardless of the completion status of the Pipeline’s or stage’s run.
+
+changed
+Only run the steps in post if the current Pipeline’s run has a different completion status from its previous run.
+
+fixed
+Only run the steps in post if the current Pipeline’s run is successful and the previous run failed or was unstable.
+
+regression
+Only run the steps in post if the current Pipeline’s or status is failure, unstable, or aborted and the previous run was successful.
+
+aborted
+Only run the steps in post if the current Pipeline’s run has an "aborted" status, usually due to the Pipeline being manually aborted. This is typically denoted by gray in the web UI.
+
+failure
+Only run the steps in post if the current Pipeline’s or stage’s run has a "failed" status, typically denoted by red in the web UI.
+
+success
+Only run the steps in post if the current Pipeline’s or stage’s run has a "success" status, typically denoted by blue or green in the web UI.
+
+unstable
+Only run the steps in post if the current Pipeline’s run has an "unstable" status, usually caused by test failures, code violations, etc. This is typically denoted by yellow in the web UI.
+
+unsuccessful
+Only run the steps in post if the current Pipeline’s or stage’s run has not a "success" status. This is typically denoted in the web UI depending on the status previously mentioned (for stages this may fire if the build itself is unstable).
+
+cleanup
+runs after pipeline execution irrespective of the pipeline status
+
+
+Example:
+
+pipeline{
+agent any 
+stages{ 
+   stage("build"){
+   steps{
+   }
+   }
+   }
+   post{
+   success{
+   sh 'echo"successfully finished the pipeline"'
+   }
+   }
 
    
