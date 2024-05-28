@@ -118,4 +118,26 @@ docker run --name javaProject javaproject
 this will create a container named javaProject and your application will be running inside your container
 
 
+DockerFile for springboot project
+ first buildyour springboot project and get the jar lets say jar name as "boot.jar"
+ FROM openjdk
+ WORKDIR /usr/src/boot
+ COPY . /usr/src/boot
+ CMD ["java","-jar","boot.jar"]  // same like java -jar boot.jar
+ EXPOSE PORT 9595  // this is where your boot project is running 
+
+
+ docker build -t bootproject .   // this will build your project and get the image with name as bootproject
+
+ then run your image inside the container
+
+ docker run --name bootProject -it -d -p 9595:9595 bootproject 
+  -p : is the port for which the docker container will refer to 
+        so 9595 will refer to the actual project which is running on 9595
+
+  you can check logs if project is running or not 
+
+  docker logs containerName(bootProject)
+
+
  
