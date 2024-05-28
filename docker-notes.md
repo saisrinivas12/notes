@@ -142,6 +142,11 @@ DockerFile for springboot project
 
   you can check logs if project is running or not 
 
+
+  to give the existing image a new name 
+
+  docker tag existingimagename newimagename
+
   docker logs containerName(bootProject)
 
 
