@@ -2,8 +2,7 @@
 
 refer :  https://docs.docker.com/ for the official documentation 
 
-
-
+Docker cheat sheet : https://github.com/rskTech/k8s_material/blob/master/Docker_cheetsheet.pdf
 Docker :
 
 it enforces the sense of packaging , shipping and running the software applications.
